@@ -14,7 +14,8 @@ export function SharedContent() {
     const fetchContent = async () => {
       try {
         const response = await axios.get(`${BACKEND_URL}/api/v1/brain/${shareLink}`);
-        setContent(response.data.content);
+        //@ts-ignore
+        setContent(response.data?.content);
       } catch (err) {
         setError("Failed to fetch content.");
       } finally {

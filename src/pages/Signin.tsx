@@ -18,7 +18,7 @@ export const Signin = () => {
             navigate("/dashboard");
         }
     }, [navigate]);
-
+//@ts-ignore
     async function signin(event ){
       event.preventDefault()
         const username = userNameRef.current?.value;
@@ -30,6 +30,7 @@ export const Signin = () => {
                 username,
                 password
             })
+            //@ts-ignore
             const jwt= response.data?.token;
             localStorage.setItem("token",jwt);
             navigate('/dashboard', { replace: true });
