@@ -21,7 +21,8 @@ export const Signup = () => {
         }
     }, [navigate]); // Dependency array to run effect on mount
     
-    async function signup(e){
+    //@ts-ignore
+    async function signup(e ){
         try {
             e.preventDefault()
             console.log("inside signup");

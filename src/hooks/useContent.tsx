@@ -14,6 +14,7 @@ export function useContent(refreshTrigger : number) {
                         Authorization: `Bearer ${localStorage.getItem("token")}`
                     }
                 });
+                //@ts-ignore
                 setContents(response.data.content);
             } catch (error) {
                 console.error('Error fetching content:', error);

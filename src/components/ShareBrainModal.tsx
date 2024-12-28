@@ -35,6 +35,7 @@ export function ShareBrainModal({open, onClose, itemCount} : {open : boolean, on
           Authorization: `Bearer ${localStorage.getItem("token")}`
         }
       });
+      //@ts-ignore
       const shareUrl = `${response.data?.hash}`;
       await navigator.clipboard.writeText(shareUrl); // Copy the share URL to clipboard
       alert("Share URL copied to clipboard!"); // Optional: Notify the user

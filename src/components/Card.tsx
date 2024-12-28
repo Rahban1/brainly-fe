@@ -34,6 +34,7 @@ export function Card(props : CardProps) {
                         headers : {
                             Authorization : `Bearer ${localStorage.getItem("token")}`
                         },
+                        //@ts-ignore
                         data : { title : props.title }
                     });
                     props.onDelete();
