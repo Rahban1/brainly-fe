@@ -3,12 +3,13 @@ import { Dashboard } from "./pages/Dashboard";
 import { Signin }from './pages/Signin';
 import { Signup } from './pages/Signup';
 import { SharedContent } from './pages/SharedContent';
+import { Home } from './pages/Home';
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Navigate to="/signup" replace />} />
+        <Route path="/" element={<Home/>} />
         <Route path="/dashboard" element={<Dashboard/>} />
         <Route path="/signin" element={<Signin/>} />
         <Route path="/signup" element={<Signup/>} />
