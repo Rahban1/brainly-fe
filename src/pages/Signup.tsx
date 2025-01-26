@@ -70,7 +70,7 @@ export const Signup = () => {
             
         </form>
         <p className="mt-4 text-center">
-          Already have an account? <a href="/signin" className="text-[#4F45E4]">Sign In</a>
+          Already have an account? <button onClick={()=>{navigate('/signin')}} className="text-[#4F45E4]">Sign In</button>
         </p>
       </div>
     </motion.div>

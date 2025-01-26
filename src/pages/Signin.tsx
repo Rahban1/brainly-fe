@@ -66,7 +66,7 @@ export const Signin = () => {
           </div>
         </form>
         <p className="mt-4 text-center">
-          Create a new account <a href="/signup" className="text-[#4F45E4]">Sign Up</a>
+          Create a new account <button onClick={()=>{navigate('/signup')}} className="text-[#4F45E4]">Sign Up</button>
         </p>
       </div>
     </motion.div>
