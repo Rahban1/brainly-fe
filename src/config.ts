@@ -1,1 +1,1 @@
-export const BACKEND_URL= "https://recollectify.me:8080"
+export const BACKEND_URL= "https://recollectify.me"
