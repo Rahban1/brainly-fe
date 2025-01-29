@@ -1,1 +1,1 @@
-export const BACKEND_URL= "http://api/recollectify.me"
+export const BACKEND_URL= "https://api.recollectify.me"
