@@ -5,8 +5,9 @@ import { PlusIcon } from '../icons/PlusIcon';
 import { Button } from './Button';
 import { BACKEND_URL } from '../config';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
-export function CreateContentModal({open, onClose} : {open : boolean, onClose : ()=> void}) {
+export function CreateContentModal({open, onClose}: {open: boolean, onClose: () => void}) {
     const modalRef = useRef<HTMLInputElement>(null);
     const titleRef = useRef<HTMLInputElement>(null);
     const linkRef = useRef<HTMLInputElement>(null);
@@ -38,19 +39,26 @@ export function CreateContentModal({open, onClose} : {open : boolean, onClose : 
         const type = typeRef.current?.value;
 
         try {
+            if (!title || !content || !type) {
+                toast.error('Please fill in all required fields');
+                return;
+            }
+
             await axios.post(`${BACKEND_URL}/api/v1/content`, {
                 title,
                 content,
                 link,
                 type
-            },{
-                headers : {
-                    Authorization : `Bearer ${localStorage.getItem("token")}`
+            }, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
                 }
             });
             
+            toast.success('Content added successfully!');
             onClose();
         } catch (error) {
+            toast.error('Error adding content');
             console.error("Error adding content:", error);
         }
     }

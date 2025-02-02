@@ -6,12 +6,14 @@ import { SharedContent } from './pages/SharedContent';
 import { Home } from './pages/Home';
 import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
     <AuthProvider>
       <ThemeProvider>
         <Router>
+          <Toaster position="top-center" />
           <Routes>
             <Route path="/" element={<Home/>} />
             <Route path="/dashboard" element={<Dashboard/>} />

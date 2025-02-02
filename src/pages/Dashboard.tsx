@@ -8,6 +8,7 @@ import { CreateContentModal } from "../components/CreateContentModal";
 import { useNavigate } from "react-router-dom";
 import { useContent } from "../hooks/useContent";
 import { BrainIcon } from "../icons/BrainIcon";
+import toast from 'react-hot-toast';
 
 // Define a type for the content items
 type ContentItem = {
@@ -34,6 +35,7 @@ export function Dashboard() {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    toast.success('Successfully logged out');
     navigate("/signin");
   };
 
