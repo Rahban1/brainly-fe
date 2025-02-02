@@ -5,13 +5,9 @@ import { Input } from '../components/Input';
 import { BACKEND_URL } from '../config';
 import axios from 'axios'; // Added import statement for axios
 import { useNavigate } from 'react-router-dom';
-import { div } from 'framer-motion/client';
 import { Navbar } from '../components/Navbar';
 
 export const Signup = () => {
-    console.log("hello");
-    
-
     const usernameRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
     const navigate = useNavigate();
@@ -19,19 +15,15 @@ export const Signup = () => {
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (token) {
-            navigate("/dashboard"); // Redirect to dashboard if already signed in
+            navigate("/dashboard");
         }
-    }, [navigate]); // Dependency array to run effect on mount
+    }, [navigate]);
     
-    //@ts-ignore
-    async function signup(e ){
+    async function signup(e: any) {
         try {
-            e.preventDefault()
-            console.log("inside signup");
-            
+            e.preventDefault();
             const username = usernameRef.current?.value;
             const password = passwordRef.current?.value;
-            console.log(username, password);
             
             await axios.post(`${BACKEND_URL}/api/v1/user/signup`, {
               username,
@@ -41,24 +33,22 @@ export const Signup = () => {
             navigate("/signin");
         } catch (error) {
             console.log(error);
-            console.log("outer catch");
         }
     }
 
   return (    
-    <div>
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
       <Navbar/>
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5 }}
-        className="flex items-center justify-center min-h-screen bg-gray-100"
+        className="flex items-center justify-center min-h-[90vh]"
       >
-        <div className="bg-white p-10 rounded-lg shadow-md w-96">
-          <h1 className="text-2xl font-bold mb-6 text-center">Sign Up</h1>
-          <form className="bg-gray-50 p-6 rounded-md">
-            
+        <div className="bg-white dark:bg-gray-800 p-10 rounded-lg shadow-md w-96">
+          <h1 className="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-white">Sign Up</h1>
+          <form className=" p-6 rounded-md">
             <Input
               placeholder='Enter your username'
               reference={usernameRef}
@@ -71,10 +61,15 @@ export const Signup = () => {
             <div className='flex justify-center items-center'>
               <Button onclick={(e)=>signup(e)} text='Sign Up' variants='primary' />
             </div>
-              
           </form>
-          <p className="mt-4 text-center">
-            Already have an account? <button onClick={()=>{navigate('/signin')}} className="text-[#4F45E4]">Sign In</button>
+          <p className="mt-4 text-center text-gray-600 dark:text-gray-300">
+            Already have an account? {' '}
+            <button 
+              onClick={()=>{navigate('/signin')}} 
+              className="text-[#4F45E4]"
+            >
+              Sign In
+            </button>
           </p>
         </div>
       </motion.div>
