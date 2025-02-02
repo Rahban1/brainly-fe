@@ -84,7 +84,8 @@ export function CreateContentModal({open, onClose} : {open : boolean, onClose : 
                 reference={typeRef} 
                 type='select' 
                 placeholder='Select type' 
-                options={[
+                //@ts-ignore
+                selectOptions={[
                     { value: 'youtube', label: 'YouTube' },
                     { value: 'twitter', label: 'Twitter' },
                     { value: 'doc', label: 'Doc' },
