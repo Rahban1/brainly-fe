@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: 'HeadFont';
+    src: url('./assets/fonts/HeadFont.woff2');
+}
+
+@font-face {
+    font-family: 'BodyFont';
+    src: url('./assets/fonts/interSub.woff2');
+}

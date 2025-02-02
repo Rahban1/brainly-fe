@@ -14,7 +14,7 @@ const variantClasses = {
     "secondary" : "bg-[#DFE7FF] text-[#4F45E4]"
 }
 
-const defaultStyles = "px-4 py-2 rounded-md font-light flex gap-2 m-2 "
+const defaultStyles = "px-3 py-1 rounded-md font-light flex gap-2 mx-1 "
 
 export function Button({variants, text, startIcon, onclick, loading} : ButtonProps){
     return <button onClick={onclick} className={variantClasses[variants] + " " + defaultStyles }>

@@ -5,6 +5,8 @@ import { Input } from '../components/Input';
 import { BACKEND_URL } from '../config';
 import axios from 'axios'; // Added import statement for axios
 import { useNavigate } from 'react-router-dom';
+import { div } from 'framer-motion/client';
+import { Navbar } from '../components/Navbar';
 
 export const Signup = () => {
     console.log("hello");
@@ -44,35 +46,38 @@ export const Signup = () => {
     }
 
   return (    
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
-      className="flex items-center justify-center min-h-screen bg-gray-100"
-    >
-      <div className="bg-white p-10 rounded-lg shadow-md w-96">
-        <h1 className="text-2xl font-bold mb-6 text-center">Sign Up</h1>
-        <form className="bg-gray-50 p-6 rounded-md">
-          
-          <Input
-            placeholder='Enter your username'
-            reference={usernameRef}
-          />
-          <Input
-            placeholder='password'
-            reference={passwordRef}
-            type='password'
-          />
-          <div className='flex justify-center items-center'>
-            <Button onclick={(e)=>signup(e)} text='Sign Up' variants='primary' />
-          </div>
+    <div>
+      <Navbar/>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.5 }}
+        className="flex items-center justify-center min-h-screen bg-gray-100"
+      >
+        <div className="bg-white p-10 rounded-lg shadow-md w-96">
+          <h1 className="text-2xl font-bold mb-6 text-center">Sign Up</h1>
+          <form className="bg-gray-50 p-6 rounded-md">
             
-        </form>
-        <p className="mt-4 text-center">
-          Already have an account? <button onClick={()=>{navigate('/signin')}} className="text-[#4F45E4]">Sign In</button>
-        </p>
-      </div>
-    </motion.div>
+            <Input
+              placeholder='Enter your username'
+              reference={usernameRef}
+            />
+            <Input
+              placeholder='password'
+              reference={passwordRef}
+              type='password'
+            />
+            <div className='flex justify-center items-center'>
+              <Button onclick={(e)=>signup(e)} text='Sign Up' variants='primary' />
+            </div>
+              
+          </form>
+          <p className="mt-4 text-center">
+            Already have an account? <button onClick={()=>{navigate('/signin')}} className="text-[#4F45E4]">Sign In</button>
+          </p>
+        </div>
+      </motion.div>
+    </div>
   );
 };
