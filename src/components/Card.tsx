@@ -18,7 +18,7 @@ interface CardProps {
 
 export function Card(props : CardProps) {
   return (
-    <div className='bg-white w-full rounded-lg shadow-sm border h-fit border-gray-200'>
+    <div className='bg-[#202E4B] w-full rounded-lg shadow-sm border h-fit border-gray-200'>
         <div className='flex justify-between m-4'>
             <div className='flex gap-1 '>
                 <div className='text-[#A0A5A6]'>
