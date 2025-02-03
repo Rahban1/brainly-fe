@@ -47,15 +47,34 @@ export function Dashboard() {
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
       <div className="container mx-auto px-4 py-6">
         <div className="flex flex-col md:flex-row justify-between items-center mb-6">
-          <div className="flex items-center mb-4 md:mb-0">
-            <div className="flex items-center gap-2 text-2xl md:text-3xl font-bold text-indigo-600 dark:text-indigo-400">
-              <BrainIcon />
-              <span>Second Brain</span>
+        <div className="flex justify-center items-center gap-1">
+                <button onClick={() => { navigate('/') }}>
+                    <img className="w-10 h-10" src="/brain.svg" alt="logo" />
+                </button>
+                <div onClick={()=> {navigate('/')}} className="cursor-pointer text-lg font-head hidden sm:block text-white">
+                    Recollectify
+                </div>
             </div>
-          </div>
           <div className="flex flex-wrap gap-2">
-            <Button text="Share Brain" onclick={() => setIsOpen(true)} variants="secondary" startIcon={<ShareIcon />} />
-            <Button
+          <button 
+                    onClick={() => { setIsOpen(true) }} 
+                    className="relative mt-2 ml-2 inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden md:text-lg font-semibold rounded-lg group 
+                             bg-gradient-to-br from-purple-600 via-purple-500 to-pink-500 
+                             hover:from-pink-500 hover:via-purple-500 hover:to-purple-600 
+                             transition-all duration-300 ease-in-out 
+                             transform hover:scale-105
+                             shadow-lg hover:shadow-xl"
+                >
+                    <span className="relative px-2 py-1 transition-all ease-in duration-200 
+                                   rounded-md bg-gray-800
+                                   group-hover:bg-opacity-0 
+                                   flex items-center gap-2 text-white">
+                                    <ShareIcon/>
+                        Share Brain
+                    </span>
+                </button>
+            {/* <Button text="Share Brain" onclick={() => setIsOpen(true)} variants="secondary" startIcon={<ShareIcon />} /> */}
+            {/* <Button
               text="Add Content"
               onclick={() => {
                 setIsOpen2(true)
@@ -63,8 +82,45 @@ export function Dashboard() {
               }}
               variants="primary"
               startIcon={<PlusIcon />}
-            />
-            <Button text="Logout" onclick={handleLogout} variants="secondary" />
+            /> */}
+            <button 
+                    onClick={() => {
+                      setIsOpen2(true)
+                      handleContentChange()
+                    }} 
+                    className="relative mt-2 ml-2 inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden md:text-lg font-semibold rounded-lg group 
+                             bg-gradient-to-br from-purple-600 via-purple-500 to-pink-500 
+                             hover:from-pink-500 hover:via-purple-500 hover:to-purple-600 
+                             transition-all duration-300 ease-in-out 
+                             transform hover:scale-105
+                             shadow-lg hover:shadow-xl"
+                >
+                    <span className="relative px-2 py-1 transition-all ease-in duration-200 
+                                   rounded-md bg-gray-800
+                                   group-hover:bg-opacity-0 
+                                   flex items-center gap-2 text-white">
+                                    <PlusIcon/>
+                        Add Content
+                    </span>
+              </button>
+              <button 
+                    onClick={handleLogout} 
+                    className="relative mt-2 ml-2 inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden md:text-lg font-semibold rounded-lg group 
+                             bg-gradient-to-br from-purple-600 via-purple-500 to-pink-500 
+                             hover:from-pink-500 hover:via-purple-500 hover:to-purple-600 
+                             transition-all duration-300 ease-in-out 
+                             transform hover:scale-105
+                             shadow-lg hover:shadow-xl"
+                >
+                    <span className="relative px-2 py-1 transition-all ease-in duration-200 
+                                   rounded-md bg-gray-800
+                                   group-hover:bg-opacity-0 
+                                   flex items-center gap-2 text-white">
+                        Logout
+                    </span>
+              </button>
+                
+            {/* <Button text="Logout" onclick={handleLogout} variants="secondary" /> */}
           </div>
         </div>
         <ShareBrainModal open={isopen} onClose={() => setIsOpen(false)} itemCount={content.length} />
