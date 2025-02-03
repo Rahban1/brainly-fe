@@ -10,15 +10,14 @@ interface ButtonProps {
 }
 
 const variantClasses = {
-    "primary" : "bg-[#4F45E4] text-white",
-    "secondary" : "bg-[#DFE7FF] text-[#4F45E4]"
+    "primary" : "bg-purple-600 text-white hover:bg-purple-700",
+    "secondary" : "bg-gray-700 text-purple-400 hover:bg-gray-600"
 }
 
-const defaultStyles = "px-3 py-1 rounded-md font-light flex gap-2 mx-1 "
+const defaultStyles = "px-3 py-1 rounded-md font-light flex gap-2 mx-1"
 
-export function Button({variants, text, startIcon, onclick, loading} : ButtonProps){
-    return <button onClick={onclick} className={variantClasses[variants] + " " + defaultStyles }>
+export function Button({variants, text, startIcon, onclick, loading} : ButtonProps) {
+    return <button onClick={onclick} className={variantClasses[variants] + " " + defaultStyles}>
         {loading ? <Loader/> : <>{startIcon} {text}</> }
-        
-        </button>
+    </button>
 }
