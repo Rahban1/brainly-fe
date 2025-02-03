@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react"
-import { Button } from "../components/Button"
 import { Card } from "../components/Card"
 import { ShareBrainModal } from "../components/ShareBrainModal"
 import { PlusIcon } from "../icons/PlusIcon"
@@ -7,7 +6,6 @@ import { ShareIcon } from "../icons/ShareIcon"
 import { CreateContentModal } from "../components/CreateContentModal"
 import { useNavigate } from "react-router-dom"
 import { useContent } from "../hooks/useContent"
-import { BrainIcon } from "../icons/BrainIcon"
 import toast from "react-hot-toast"
 
 // Define a type for the content items
