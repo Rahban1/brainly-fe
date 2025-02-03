@@ -81,7 +81,7 @@ export function ShareBrainModal({open, onClose, itemCount} : {open : boolean, on
               <span className="relative px-2 py-1 transition-all ease-in duration-200 
                              rounded-md bg-gray-800
                              group-hover:bg-opacity-0 
-                             sm:flex items-center gap-2 text-white hidden">
+                             flex items-center gap-2 text-white">
                 <ShareIcon/>
                 Share Brain
               </span>
