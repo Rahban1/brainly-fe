@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Navbar } from '../components/Navbar';
 import { useAuth } from '../context/AuthContext';
-import Brain from '../components/Brain';
 
 export function Home() {
     const navigate = useNavigate();
