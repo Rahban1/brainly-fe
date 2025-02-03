@@ -10,9 +10,9 @@ import { Eye, EyeOff } from "lucide-react"
 
 
 export function Signin() {
-    const usernameRef = useRef<HTMLInputElement | null>(null);
-    const passwordRef = useRef<HTMLInputElement | null>(null);
-    const [showPassword, setShowPassword] = useState(false)
+    const usernameRef = useRef<HTMLInputElement>(null);
+    const passwordRef = useRef<HTMLInputElement>(null);
+    const [showPassword, setShowPassword] = useState(false);
 
     const navigate = useNavigate();
 
@@ -23,7 +23,7 @@ export function Signin() {
         }
     }, [navigate]);
 
-    async function signin(e: any) {
+    async function signin(e: React.FormEvent<HTMLFormElement>) {
         try {
             e.preventDefault();
             const username = usernameRef.current?.value;
@@ -44,7 +44,7 @@ export function Signin() {
             navigate("/dashboard");
         } catch (error) {
             toast.error('Invalid username or password');
-            console.log(error);
+            console.error(error);
         }
     }
 
@@ -72,7 +72,7 @@ export function Signin() {
                             <Input
                                 id="username"
                                 placeholder="Enter your username"
-                                ref={usernameRef}
+                                reference={usernameRef}
                                 className="w-full bg-gray-700 text-white"
                             />
                         </div>
@@ -84,7 +84,7 @@ export function Signin() {
                                 <Input
                                     id="password"
                                     placeholder="Enter your password"
-                                    ref={passwordRef}
+                                    reference={passwordRef}
                                     type={showPassword ? "text" : "password"}
                                     className="w-full bg-gray-700 text-white pr-10"
                                 />
@@ -99,6 +99,7 @@ export function Signin() {
                         </div>
                         <div className="flex justify-center">
                             <button 
+                                type="submit"
                                 className="relative mt-2 ml-2 inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden md:text-lg font-semibold rounded-lg group 
                                         bg-gradient-to-br from-purple-600 via-purple-500 to-pink-500 
                                         hover:from-pink-500 hover:via-purple-500 hover:to-purple-600 
