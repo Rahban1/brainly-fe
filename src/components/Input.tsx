@@ -61,7 +61,7 @@ export const Input = forwardRef<HTMLInputElement | HTMLSelectElement, InputProps
           <input
             type={type}
             className={cn(
-              "w-full px-4 py-2 rounded-md transition-colors duration-200 ease-in-out",
+              "w-full px-4 py-2 mb-2 rounded-md transition-colors duration-200 ease-in-out",
               "text-white bg-gray-800",
               "border border-gray-600",
               "focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent",
