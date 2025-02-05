@@ -20,8 +20,8 @@ export function Card(props : CardProps) {
   return (
     <div className='bg-[#202E4B] w-full rounded-lg shadow-sm border h-fit border-gray-200'>
         <div className='flex justify-between m-4'>
-            <div className='flex gap-1 '>
-                <div className='text-[#A0A5A6]'>
+            <div className='flex gap-1 text-white font-head tracking-wider'>
+                <div className='text-[#A0A5A6] mr-2'>
                     {props.type === 'youtube' && <YoutubeIcon color='#A0A5A6'/>}
                     {props.type === 'doc' && <DocumentIcon/>}
                     {props.type === 'twitter' && <TweetIcon/>}
@@ -45,7 +45,7 @@ export function Card(props : CardProps) {
 
         </div>
 
-        <div className='m-4 text-[#575A66] '>{props.data} </div>
+        <div className='m-4 text-white  '>{props.data} </div>
         <div >
             {props.type === 'doc' && props.link && (
                 <div className='m-4'>
