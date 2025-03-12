@@ -11,7 +11,7 @@ import { LogOutIcon } from "lucide-react"
 
 // Define a type for the content items
 type ContentItem = {
-  type: "twitter" | "youtube" | "doc"
+  type: "twitter" | "youtube" | "doc" | "instagram" | "pinterest" | "geeksforgeeks" | "stackoverflow" | "github" | "website"
   link: string
   title: string
   content: string
@@ -143,11 +143,11 @@ export function Dashboard() {
             handleContentChange()
           }}
         />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
           {content
             .filter((item) => selectedItem === "All" || item.type === selectedItem)
             .map(({ type, link, title, content }: ContentItem) => (
-              <div key={title}>
+              <div key={title} className="break-inside-avoid">
                 <Card title={title} type={type} link={link} data={content} onDelete={handleContentChange} />
               </div>
             ))}

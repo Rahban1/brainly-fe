@@ -96,6 +96,12 @@ export function CreateContentModal({open, onClose}: {open: boolean, onClose: () 
                     { value: 'youtube', label: 'YouTube' },
                     { value: 'twitter', label: 'Twitter' },
                     { value: 'doc', label: 'Doc' },
+                    { value: 'instagram', label: 'Instagram' },
+                    { value: 'pinterest', label: 'Pinterest' },
+                    { value: 'geeksforgeeks', label: 'GeeksForGeeks' },
+                    { value: 'stackoverflow', label: 'Stack Overflow' },
+                    { value: 'github', label: 'GitHub' },
+                    { value: 'website', label: 'Other Website' }
                 ]}
             />
         </div>
