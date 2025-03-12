@@ -55,6 +55,11 @@ function getCardStyle(type: string) {
         bgGradient: 'from-purple-900/30 to-[#202E4B]'
       };
     case 'doc':
+      // Check if it's a LeetCode link
+      return {
+        borderColor: '#FFA116', // LeetCode orange if it's a LeetCode link
+        bgGradient: 'from-amber-900/30 to-[#202E4B]'
+      };
     case 'website':
     default:
       return {
@@ -74,7 +79,13 @@ export function Card(props : CardProps) {
             <div className='flex gap-1 text-white font-head tracking-wider'>
                 <div className='mr-2'>
                     {props.type === 'youtube' && <YoutubeIcon color='#FF0000'/>}
-                    {props.type === 'doc' && <span className="text-blue-500"><DocumentIcon /></span>}
+                    {props.type === 'doc' && !props.link?.includes('leetcode.com') && <span className="text-blue-500"><DocumentIcon /></span>}
+                    {props.type === 'doc' && props.link?.includes('leetcode.com') && <span className="text-[#FFA116]">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                      </svg>
+                    </span>}
                     {props.type === 'twitter' && <span className="text-[#1DA1F2]"><TweetIcon /></span>}
                     {props.type === 'instagram' && <span className="text-pink-500">📷</span>}
                     {props.type === 'pinterest' && <span className="text-red-500">📌</span>}
@@ -104,13 +115,37 @@ export function Card(props : CardProps) {
 
         <div className='m-4 text-white  '>{props.data} </div>
         <div >
-            {props.type === 'doc' && props.link && (
+            {props.type === 'doc' && props.link?.includes('leetcode.com') && (
+                <div className='m-4 p-3 bg-amber-900/20 rounded-md border border-amber-600/30'>
+                    <div className='flex items-center mb-2'>
+                        <span className='text-[#FFA116] mr-2'>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                            </svg>
+                        </span>
+                        <span className='font-medium text-[#FFA116]'>LeetCode</span>
+                        
+                        {/* Difficulty indicator based on problem description */}
+                        {props.data?.toLowerCase().includes('easy') && 
+                            <span className='ml-2 px-2 py-0.5 bg-green-800/30 text-green-500 text-xs rounded-full border border-green-700/30'>Easy</span>}
+                        {props.data?.toLowerCase().includes('medium') && 
+                            <span className='ml-2 px-2 py-0.5 bg-yellow-800/30 text-yellow-500 text-xs rounded-full border border-yellow-700/30'>Medium</span>}
+                        {props.data?.toLowerCase().includes('hard') && 
+                            <span className='ml-2 px-2 py-0.5 bg-red-800/30 text-red-500 text-xs rounded-full border border-red-700/30'>Hard</span>}
+                    </div>
+                    <p className='text-gray-300 text-sm mb-2'>{props.data || 'LeetCode problem'}</p>
+                    <a href={props.link} target="_blank" rel="noopener noreferrer" className='text-[#FFA116] hover:text-amber-400 mt-2 block'>
+                        View LeetCode Problem
+                    </a>
+                </div>
+            )}
+            {props.type === 'doc' && !props.link?.includes('leetcode.com') && (
                 <div className='m-4 p-3 bg-blue-900/20 rounded-md border border-blue-700/30'>
                     <div className='flex items-center mb-2'>
                         <span className='text-blue-500 mr-2'><DocumentIcon /></span>
                         <span className='font-medium text-blue-500'>
-                            {props.link?.includes('leetcode.com') ? 'LeetCode' : 
-                             props.link?.includes('pdf') ? 'PDF Document' : 
+                            {props.link?.includes('pdf') ? 'PDF Document' : 
                              props.link?.includes('docs.google.com') ? 'Google Doc' : 
                              props.link?.includes('notion.so') ? 'Notion Page' : 
                              'Document'}
@@ -118,8 +153,7 @@ export function Card(props : CardProps) {
                     </div>
                     <p className='text-gray-300 text-sm mb-2'>{props.data || 'Saved document'}</p>
                     <a href={props.link} target="_blank" rel="noopener noreferrer" className='text-blue-500 hover:text-blue-400 mt-2 block'>
-                        {props.link?.includes('leetcode.com') ? 'View LeetCode Problem' : 
-                         props.link?.includes('pdf') ? 'View PDF' : 
+                        {props.link?.includes('pdf') ? 'View PDF' : 
                          props.link?.includes('docs.google.com') ? 'Open Google Doc' : 
                          props.link?.includes('notion.so') ? 'Open Notion Page' : 
                          'View Document'}
