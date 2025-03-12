@@ -75,7 +75,7 @@ function getCardStyle(type: string) {
 
 export function Card(props: CardProps) {
   const cardStyle = getCardStyle(props.type);
-  const [instagramEmbedHtml, setInstagramEmbedHtml] = useState<string | null>(null);
+  const [_, setInstagramEmbedHtml] = useState<string | null>(null);
   const [pinterestEmbedHtml, setPinterestEmbedHtml] = useState<string | null>(null);
   
   useEffect(() => {

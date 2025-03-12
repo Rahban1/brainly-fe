@@ -15,8 +15,14 @@ export function InstagramEmbed({ url }: InstagramEmbedProps) {
 
   const postId = getPostId(url);
   
-  // Generate the post thumbnail URL
-  // We can't use actual Instagram thumbnails due to CORS, so using a gradient placeholder
+  // If we couldn't extract a post ID, display a fallback or error message
+  if (!postId) {
+    return (
+      <div className="instagram-embed rounded-lg overflow-hidden border border-red-500/30 shadow-md p-4">
+        <p className="text-red-400">Invalid Instagram URL</p>
+      </div>
+    );
+  }
   
   return (
     <div className="instagram-embed rounded-lg overflow-hidden border border-pink-500/30 shadow-md">
@@ -43,7 +49,7 @@ export function InstagramEmbed({ url }: InstagramEmbedProps) {
               </svg>
             </div>
             <div className="text-center px-4">
-              <p className="text-sm opacity-80">Instagram content preview</p>
+              <p className="text-sm opacity-80">Instagram Post: {postId}</p>
               <p className="text-xs opacity-60 mt-1">Click below to view the original post</p>
             </div>
           </div>
@@ -78,6 +84,7 @@ export function InstagramEmbed({ url }: InstagramEmbedProps) {
           target="_blank" 
           rel="noopener noreferrer"
           className="w-full flex justify-center items-center text-pink-400 hover:text-pink-300 transition-colors"
+          aria-label={`View Instagram post ${postId}`}
         >
           <span className="mr-2">View on Instagram</span>
           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

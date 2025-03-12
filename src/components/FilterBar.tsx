@@ -18,7 +18,7 @@ type TypeFilterBarProps = {
 
 // Define all possible filter options
 const allFilterOptions = [
-  { id: 'All', label: 'All', icon: (selected: boolean) => <AllIcon /> },
+  { id: 'All', label: 'All', icon: <AllIcon /> },
   { id: 'youtube', label: 'YouTube', icon: (selected: boolean) => <div className={selected ? 'text-white' : 'text-[#FF0000]'}><YoutubeIcon color={selected ? 'white' : '#FF0000'} /></div> },
   { id: 'twitter', label: 'Twitter', icon: (selected: boolean) => <div className={selected ? 'text-white' : 'text-[#1DA1F2]'}><TweetIcon /></div> },
   { id: 'doc', label: 'Documents', icon: (selected: boolean) => <div className={selected ? 'text-white' : 'text-blue-500'}><DocumentIcon /></div> },
