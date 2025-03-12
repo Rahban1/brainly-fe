@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom"
 import { useContent } from "../hooks/useContent"
 import toast from "react-hot-toast"
 import { LogOutIcon } from "lucide-react"
+import { TypeFilterBar } from "../components/FilterBar"
+import { EmptyState } from "../components/EmptyState"
 
 // Define a type for the content items
 type ContentItem = {
@@ -21,7 +23,7 @@ export function Dashboard() {
   const [isopen, setIsOpen] = useState(false)
   const [isopen2, setIsOpen2] = useState(false)
   const [refreshTrigger, setRefreshTrigger] = useState(0)
-  const [selectedItem, _] = useState("All")
+  const [selectedItem, setSelectedItem] = useState("All")
   const content: ContentItem[] = useContent(refreshTrigger)
   const navigate = useNavigate()
 
@@ -135,6 +137,26 @@ export function Dashboard() {
       </div>
 
       <div className="container mx-auto px-4 py-6">
+        {content.length > 0 ? (
+          <>
+            <TypeFilterBar 
+              selectedType={selectedItem} 
+              setSelectedType={setSelectedItem} 
+              contentTypes={content.map(item => item.type)}
+            />
+            <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+              {content
+                .filter((item) => selectedItem === "All" || item.type === selectedItem.toLowerCase())
+                .map(({ type, link, title, content }: ContentItem) => (
+                  <div key={title} className="break-inside-avoid">
+                    <Card title={title} type={type} link={link} data={content} onDelete={handleContentChange} />
+                  </div>
+                ))}
+            </div>
+          </>
+        ) : (
+          <EmptyState onAddContent={() => setIsOpen2(true)} />
+        )}
         <ShareBrainModal open={isopen} onClose={() => setIsOpen(false)} itemCount={content.length} />
         <CreateContentModal
           open={isopen2}
@@ -143,17 +165,7 @@ export function Dashboard() {
             handleContentChange()
           }}
         />
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
-          {content
-            .filter((item) => selectedItem === "All" || item.type === selectedItem)
-            .map(({ type, link, title, content }: ContentItem) => (
-              <div key={title} className="break-inside-avoid">
-                <Card title={title} type={type} link={link} data={content} onDelete={handleContentChange} />
-              </div>
-            ))}
-        </div>
       </div>
     </div>
   )
 }
-

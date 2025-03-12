@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { DeleteIcon } from '../icons/DeleteIcon'
 import { YoutubeIcon } from '../icons/YoutubeIcon'
 import { DocumentIcon } from '../icons/DocumentIcon'
@@ -5,14 +6,17 @@ import { TweetIcon } from '../icons/TweetIcon'
 import { Tweet } from 'react-tweet'
 import { BACKEND_URL } from '../config'
 import axios from "axios"
+import { InstagramIcon } from '../icons/InstagramIcon'
+import { PinterestIcon } from '../icons/PinterestIcon'
+import { InstagramEmbed } from './InstagramEmbed'
 
 interface CardProps {
-    title : string,
-    data? : string,
-    link? : string,
-    tags? : string[],
-    date? : string,
-    type : "twitter" | "youtube" | "doc" | "instagram" | "pinterest" | "geeksforgeeks" | "stackoverflow" | "github" | "website",
+    title: string,
+    data?: string,
+    link?: string,
+    tags?: string[],
+    date?: string,
+    type: "twitter" | "youtube" | "doc" | "instagram" | "pinterest" | "geeksforgeeks" | "stackoverflow" | "github" | "website",
     onDelete: () => void,
 }
 
@@ -69,8 +73,62 @@ function getCardStyle(type: string) {
   }
 }
 
-export function Card(props : CardProps) {
+export function Card(props: CardProps) {
   const cardStyle = getCardStyle(props.type);
+  const [instagramEmbedHtml, setInstagramEmbedHtml] = useState<string | null>(null);
+  const [pinterestEmbedHtml, setPinterestEmbedHtml] = useState<string | null>(null);
+  
+  useEffect(() => {
+    // Function to get Instagram embed
+    async function fetchInstagramEmbed() {
+      if (props.type === 'instagram' && props.link) {
+        try {
+          // Using Instagram's oEmbed endpoint
+          const response = await fetch(`https://api.instagram.com/oembed/?url=${encodeURIComponent(props.link)}`);
+          if (response.ok) {
+            const data = await response.json();
+            setInstagramEmbedHtml(data.html);
+          }
+        } catch (error) {
+          console.error("Error fetching Instagram embed:", error);
+        }
+      }
+    }
+
+    // Function to get Pinterest embed
+    async function fetchPinterestEmbed() {
+      if (props.type === 'pinterest' && props.link) {
+        try {
+          setPinterestEmbedHtml(`
+            <a 
+              data-pin-do="embedPin" 
+              href="${props.link}"
+            ></a>
+          `);
+          
+          // Load Pinterest widget JS if not already loaded
+          if (!document.getElementById('pinterest-widget')) {
+            const script = document.createElement('script');
+            script.id = 'pinterest-widget';
+            script.async = true;
+            script.defer = true;
+            script.src = "//assets.pinterest.com/js/pinit.js";
+            document.body.appendChild(script);
+          } else {
+            // Reinitialize Pinterest widgets if script already loaded
+            if (window.PinUtils) {
+              window.PinUtils.build();
+            }
+          }
+        } catch (error) {
+          console.error("Error setting up Pinterest embed:", error);
+        }
+      }
+    }
+
+    fetchInstagramEmbed();
+    fetchPinterestEmbed();
+  }, [props.type, props.link]);
   
   return (
     <div className={`bg-gradient-to-b ${cardStyle.bgGradient} w-full rounded-lg shadow-sm border-2 h-fit`} 
@@ -87,8 +145,8 @@ export function Card(props : CardProps) {
                       </svg>
                     </span>}
                     {props.type === 'twitter' && <span className="text-[#1DA1F2]"><TweetIcon /></span>}
-                    {props.type === 'instagram' && <span className="text-pink-500">📷</span>}
-                    {props.type === 'pinterest' && <span className="text-red-500">📌</span>}
+                    {props.type === 'instagram' && <span className="text-pink-500"><InstagramIcon /></span>}
+                    {props.type === 'pinterest' && <span className="text-red-500"><PinterestIcon /></span>}
                     {props.type === 'geeksforgeeks' && <span className="text-green-500">🧠</span>}
                     {props.type === 'stackoverflow' && <span className="text-orange-500">💻</span>}
                     {props.type === 'github' && <span className="text-purple-500">🐱</span>}
@@ -113,8 +171,36 @@ export function Card(props : CardProps) {
 
         </div>
 
-        <div className='m-4 text-white  '>{props.data} </div>
-        <div >
+        <div className='m-4 text-white'>{props.data}</div>
+
+        <div>
+            {props.type === 'instagram' && props.link && (
+                <div className='mx-4 mb-4'>
+                    <InstagramEmbed url={props.link} />
+                </div>
+            )}
+
+            {props.type === 'pinterest' && props.link && (
+                <div className='mx-4 mb-4'>
+                    {pinterestEmbedHtml ? (
+                        <div 
+                            className="bg-red-900/20 rounded-md p-4 flex justify-center"
+                            dangerouslySetInnerHTML={{ __html: pinterestEmbedHtml }} 
+                        />
+                    ) : (
+                        <div className='p-3 bg-red-900/20 rounded-md border border-red-700/30'>
+                            <div className='flex items-center mb-2'>
+                                <span className='text-red-500 mr-2'><PinterestIcon /></span>
+                                <span className='font-medium text-red-500'>Pinterest</span>
+                            </div>
+                            <a href={props.link} target="_blank" rel="noopener noreferrer" className='text-red-500 hover:text-red-400 mt-2 block'>
+                                View Pinterest Pin
+                            </a>
+                        </div>
+                    )}
+                </div>
+            )}
+            
             {props.type === 'doc' && props.link?.includes('leetcode.com') && (
                 <div className='m-4 p-3 bg-amber-900/20 rounded-md border border-amber-600/30'>
                     <div className='flex items-center mb-2'>
@@ -157,28 +243,6 @@ export function Card(props : CardProps) {
                          props.link?.includes('docs.google.com') ? 'Open Google Doc' : 
                          props.link?.includes('notion.so') ? 'Open Notion Page' : 
                          'View Document'}
-                    </a>
-                </div>
-            )}
-            {props.type === 'instagram' && props.link && (
-                <div className='m-4 p-3 bg-gradient-to-r from-purple-900/30 via-pink-900/30 to-yellow-900/30 rounded-md border border-pink-700/30'>
-                    <div className='flex items-center mb-2'>
-                        <span className='text-pink-500 mr-2'>📷</span>
-                        <span className='font-medium bg-gradient-to-r from-purple-400 via-pink-400 to-yellow-400 text-transparent bg-clip-text'>Instagram</span>
-                    </div>
-                    <a href={props.link} target="_blank" rel="noopener noreferrer" className='text-pink-500 hover:text-pink-400 mt-2 block'>
-                        View Instagram Post
-                    </a>
-                </div>
-            )}
-            {props.type === 'pinterest' && props.link && (
-                <div className='m-4 p-3 bg-red-900/20 rounded-md border border-red-700/30'>
-                    <div className='flex items-center mb-2'>
-                        <span className='text-red-500 mr-2'>📌</span>
-                        <span className='font-medium text-red-500'>Pinterest</span>
-                    </div>
-                    <a href={props.link} target="_blank" rel="noopener noreferrer" className='text-red-500 hover:text-red-400 mt-2 block'>
-                        View Pinterest Pin
                     </a>
                 </div>
             )}
@@ -249,7 +313,7 @@ export function Card(props : CardProps) {
         </div>
 
         <div className='m-4 flex gap-3'>
-            {props.tags?.map((tag) => <div className='text-[#4F45E4] bg-[#DFE7FF] rounded-full p-2 text-sm'>{tag}</div>)}
+            {props.tags?.map((tag, index) => <div key={index} className='text-[#4F45E4] bg-[#DFE7FF] rounded-full p-2 text-sm'>{tag}</div>)}
         </div>
         <p className='m-4 text-sm text-[#A0A5A6]'>Added on {new Date().toLocaleDateString()}</p>
     </div>
@@ -272,4 +336,11 @@ function getYoutubeEmbedUrl(url: string): string {
     } catch {
         return '';
     }
+}
+
+// Need to add this to the global Window interface for TypeScript
+declare global {
+  interface Window {
+    PinUtils?: any;
+  }
 }
