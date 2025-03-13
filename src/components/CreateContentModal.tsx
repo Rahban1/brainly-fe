@@ -6,7 +6,11 @@ import { BACKEND_URL } from '../config';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-export function CreateContentModal({open, onClose}: {open: boolean, onClose: () => void}) {
+export function CreateContentModal({open, onClose, onContentAdded}: {
+    open: boolean, 
+    onClose: () => void,
+    onContentAdded?: () => void  // Add this prop to notify parent component
+}) {
     const modalRef = useRef<HTMLInputElement>(null);
     const titleRef = useRef<HTMLInputElement>(null);
     const linkRef = useRef<HTMLInputElement>(null);
@@ -55,6 +59,20 @@ export function CreateContentModal({open, onClose}: {open: boolean, onClose: () 
             });
             
             toast.success('Content added successfully!');
+            
+            // Clear the form
+            if (titleRef.current) titleRef.current.value = '';
+            if (contentRef.current) contentRef.current.value = '';
+            if (linkRef.current) linkRef.current.value = '';
+            if (typeRef.current && typeRef.current instanceof HTMLSelectElement) {
+                typeRef.current.selectedIndex = 0;
+            }
+            
+            // Call the callback to notify parent component
+            if (onContentAdded) {
+                onContentAdded();
+            }
+            
             onClose();
         } catch (error) {
             toast.error('Error adding content');
@@ -130,4 +148,4 @@ export function CreateContentModal({open, onClose}: {open: boolean, onClose: () 
     </div>,
     document.body
     );
-    }
+}

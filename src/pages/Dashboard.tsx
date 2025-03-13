@@ -85,7 +85,6 @@ export function Dashboard() {
             <button 
               onClick={() => {
                 setIsOpen2(true)
-                handleContentChange()
               }} 
               className="relative inline-flex items-center justify-center p-0.5 overflow-hidden md:text-lg font-semibold rounded-lg group 
                        bg-gradient-to-br from-purple-600 via-purple-500 to-pink-500 
@@ -162,8 +161,8 @@ export function Dashboard() {
           open={isopen2}
           onClose={() => {
             setIsOpen2(false)
-            handleContentChange()
           }}
+          onContentAdded={handleContentChange}  // Pass the content change handler to the modal
         />
       </div>
     </div>
