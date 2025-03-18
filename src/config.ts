@@ -1,1 +1,1 @@
-export const BACKEND_URL= "https://brainly-backend.rahban-ghani2001.workers.dev/"
+export const BACKEND_URL= "https://brainly-backend.rahban-ghani2001.workers.dev"
