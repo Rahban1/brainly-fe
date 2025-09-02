@@ -1,3 +1,18 @@
 {
-    "rewrites": [{ "source": "/(.*)", "destination": "/" }]
-}
+    "rewrites": [
+      {
+        "source": "/brainly-backend-production-33ee.up.railway.app/api/:path*",
+        "destination": "https://brainly-backend-production-33ee.up.railway.app/api/:path*"
+      }
+    ],
+    "headers": [
+      {
+        "source": "/brainly-backend-production-33ee.up.railway.app/(.*)",
+        "headers": [
+          { "key": "Access-Control-Allow-Origin", "value": "*" },
+          { "key": "Access-Control-Allow-Methods", "value": "GET,POST,PUT,DELETE,OPTIONS" },
+          { "key": "Access-Control-Allow-Headers", "value": "Content-Type, Authorization" }
+        ]
+      }
+    ]
+  }
