@@ -1,1 +1,1 @@
-export const BACKEND_URL= "https://brainly-backend-vu9f.onrender.com/"
+export const BACKEND_URL= "brainly-backend-production-33ee.up.railway.app"
