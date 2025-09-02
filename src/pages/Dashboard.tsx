@@ -57,7 +57,7 @@ export function Dashboard() {
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className=" flex items-center gap-2">
             <button 
               onClick={() => {
                 setIsOpen2(true)
