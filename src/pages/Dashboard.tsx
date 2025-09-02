@@ -59,30 +59,6 @@ export function Dashboard() {
 
           <div className="flex items-center gap-2">
             <button 
-              onClick={() => { setIsOpen(true) }} 
-              className="relative inline-flex items-center justify-center p-0.5 overflow-hidden md:text-lg font-semibold rounded-lg group 
-                       bg-gradient-to-br from-purple-600 via-purple-500 to-pink-500 
-                       hover:from-pink-500 hover:via-purple-500 hover:to-purple-600 
-                       transition-all duration-300 ease-in-out 
-                       transform hover:scale-105
-                       shadow-lg hover:shadow-xl"
-            >
-              <span className="relative px-2 py-1 transition-all ease-in duration-200 
-                             rounded-md 
-                             group-hover:bg-opacity-0 
-                             flex items-center gap-2 text-white sm:hidden">
-                <ShareIcon/>
-              </span>
-              <span className="relative px-2 py-1 transition-all ease-in duration-200 
-                             rounded-md bg-gray-800
-                             group-hover:bg-opacity-0 
-                             sm:flex items-center gap-2 text-white hidden">
-                <ShareIcon/>
-                Share Brain
-              </span>
-            </button>
-
-            <button 
               onClick={() => {
                 setIsOpen2(true)
               }} 
